@@ -1,1 +1,16 @@
 GET http://localhost:8080/api/products?page=1&sortBy=id_product&dir=desc
+
+###
+GET http://localhost:8080/api/users?email=sample.mail@test.com
+
+###
+POST http://localhost:8080/api/users/save
+Content-Type: application/json
+
+{
+  "email": "sample.mail@test.com",
+  "name": "Jhon Doe",
+  "id":"99",
+  "address": "2495  Mahlon Street",
+  "phone": "3148983429"
+}
