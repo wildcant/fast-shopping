@@ -1,0 +1,1 @@
+GET http://localhost:8080/api/products?page=1&sortBy=id_product&dir=desc

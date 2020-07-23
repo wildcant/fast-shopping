@@ -18,11 +18,12 @@ USE `fast_shopping` ;
 -- Table `fast_shopping`.`products`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `fast_shopping`.`products` (
-  `id_product` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `price` DECIMAL(10,2) NOT NULL,
+  `id_product` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(120) NOT NULL,
+  `price` FLOAT NOT NULL,
   `category` VARCHAR(120) NOT NULL,
-  `description` VARCHAR(120) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_product`))
 ENGINE = InnoDB;
 
@@ -38,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `fast_shopping`.`users` (
   `address` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(45) NULL,
   PRIMARY KEY (`id_user`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  UNIQUE INDEX `id_user_UNIQUE` (`id_user` ASC))
 ENGINE = InnoDB;
 
 
