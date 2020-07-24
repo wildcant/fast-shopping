@@ -13,14 +13,15 @@ export default (theme) => ({
     display: 'flex',
     width: '100%',
     borderBottom: 'solid 1px',
+    justifyContent: 'space-between',
   },
   logo: {
     display: 'flex',
+    alignItems: 'center',
   },
   title: {
     fontFamily: 'Itim',
     fontWeight: 'bold',
-    fontSize: '3em',
   },
   logoImg: {
     width: '50px',

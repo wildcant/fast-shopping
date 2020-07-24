@@ -10,17 +10,14 @@ const SelectFilter = ({ classes }) => {
   const [selectedOption, setSelectedOption] = useState('Ninguno');
   const options = ['Most Relevant', 'Lowest Price', 'Most Recent'];
   const selectOption = (e) => {
-    console.log(e.target.value);
     setSelectedOption(e.target.value);
   };
-  console.log(selectedOption);
   return (
     <SelectStyled
       displayEmpty
       value={selectedOption}
       onChange={selectOption}
       variant="outlined"
-      // MenuProps={MenuProps}
       renderValue={(selected) => selected}
       inputProps={{ 'aria-label': 'Without label' }}
     >
