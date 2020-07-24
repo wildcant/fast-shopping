@@ -15,7 +15,6 @@ const pagination = (state = paginationDefaultState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS_SUCCESS:
       delete res['products'];
-      console.log(res);
       return res;
     default:
       return state;

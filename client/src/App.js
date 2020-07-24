@@ -1,14 +1,14 @@
-import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { onLoad } from 'actions';
+import Container from 'components/Container';
 import Header from 'components/Header';
 import Home from 'components/home';
-import Container from 'components/Container';
 import NotFound from 'components/NotFound';
+import PropTypes from 'prop-types';
+import React, { Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { onLoad } from 'actions';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-function App({ onLoad }) {
+const App = ({ onLoad }) => {
   useEffect(() => {
     onLoad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -18,16 +18,18 @@ function App({ onLoad }) {
     <Router>
       <Container>
         <Header />
-        <Suspense fallback={<CircularProgress />}>
+        <Suspense>
           <Switch>
             <Route exact={true} path="/" component={Home} />
-            {/* <Route path="/test" component={LoadingApp} /> */}
             <Route path="*" component={NotFound} />
           </Switch>
         </Suspense>
       </Container>
     </Router>
   );
-}
+};
+App.propTypes = {
+  onLoad: PropTypes.func.isRequired,
+};
 
 export default connect(null, { onLoad })(App);
