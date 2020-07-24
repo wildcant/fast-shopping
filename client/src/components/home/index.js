@@ -1,8 +1,10 @@
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import ProductCard from './ProductCard';
+import SelectFilter from './SelectFilter';
 import data from './testData';
 const products = data.products;
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,12 +33,22 @@ const useStyles = makeStyles((theme) => ({
       padding: '1em',
     },
   },
+  filterWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: '1rem',
+  },
 }));
 
 export default () => {
   const classes = useStyles();
   return (
     <section>
+      <div className={classes.filterWrapper}>
+        <Typography>Order By: </Typography> <SelectFilter />
+      </div>
       <ul className={classes.cardsContainer}>
         {products.map((product, id) => (
           <li className={classes.listItem} key={id}>
