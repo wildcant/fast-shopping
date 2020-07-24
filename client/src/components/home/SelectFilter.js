@@ -1,36 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Select, MenuItem } from '@material-ui/core';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const SelectStyled = styled(Select)`
   margin: 0 0 0 1rem;
 `;
 
-const SelectFilter = ({ classes }) => {
-  const [selectedOption, setSelectedOption] = useState('Ninguno');
-  const options = ['Most Relevant', 'Lowest Price', 'Most Recent'];
-  const selectOption = (e) => {
-    setSelectedOption(e.target.value);
-  };
+const SelectFilter = ({ selectedOption, options, handleSelect }) => {
   return (
     <SelectStyled
       displayEmpty
       value={selectedOption}
-      onChange={selectOption}
+      onChange={handleSelect}
       variant="outlined"
       renderValue={(selected) => selected}
       inputProps={{ 'aria-label': 'Without label' }}
     >
-      <MenuItem disabled value="">
-        <em>Ninguno</em>
-      </MenuItem>
-      {options.map((option) => (
-        <MenuItem key={option} value={option}>
+      {options.map((option, id) => (
+        <MenuItem key={id} id={id} value={option}>
           {option}
         </MenuItem>
       ))}
     </SelectStyled>
   );
+};
+
+SelectFilter.propTypes = {
+  handleSelect: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedOption: PropTypes.string.isRequired,
 };
 
 export default SelectFilter;

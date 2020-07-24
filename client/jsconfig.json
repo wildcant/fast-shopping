@@ -4,7 +4,8 @@
     "paths": {
       "assets": ["./assets/*"],
       "styles": ["./styles/*"],
-      "components": ["./components/*"]
+      "components": ["./components/*"],
+      "actions": ["./actions"]
     }
   }
 }

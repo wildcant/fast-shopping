@@ -5,12 +5,11 @@ import { useLocation } from 'react-router-dom';
 import Logo from 'assets/images/logo.svg';
 import headerStyles from 'styles/headerStyles';
 const useStyles = makeStyles(headerStyles);
-import CartButton from './CartButton';
+import CartButton from './home/CartButton';
 
 export default () => {
   const classes = useStyles();
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <AppBar className={classes.navBar} position="static">
       <Toolbar className={classes.toolbar}>
