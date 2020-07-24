@@ -5,7 +5,7 @@
       "assets": ["./assets/*"],
       "styles": ["./styles/*"],
       "components": ["./components/*"],
-      "actions": ["./actions"]
+      "actions": ["./actions/*"]
     }
   }
 }

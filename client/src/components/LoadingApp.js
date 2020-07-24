@@ -1,6 +1,8 @@
 import { withStyles } from '@material-ui/core/styles';
 import logoIcon from 'assets/images/logo.svg';
+import PropTypes from 'prop-types';
 import React from 'react';
+
 const styles = {
   '@keyframes loading': {
     '0%': {
@@ -27,4 +29,7 @@ const styles = {
 };
 
 const LoadingApp = ({ classes }) => <div className={classes.loader}></div>;
+LoadingApp.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 export default withStyles(styles)(LoadingApp);

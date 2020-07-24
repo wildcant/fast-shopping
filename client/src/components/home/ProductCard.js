@@ -1,15 +1,15 @@
-import React from 'react';
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
-  Typography,
-  Button,
   Chip,
+  Typography,
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import imagePlacehodler from 'assets/images/img-placeholder.jpg';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
 import styles from 'styles/productCardStyles';
 
 const ProductCard = ({ name, category, description, price, classes }) => (
@@ -40,6 +40,7 @@ ProductCard.propTypes = {
   category: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ProductCard);
