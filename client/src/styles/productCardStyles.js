@@ -41,4 +41,8 @@ export default (theme) => ({
     alignItems: 'center',
     width: '100%',
   },
+  btnSpan: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 });

@@ -7,6 +7,9 @@ import {
   ALPHA_ORDER_FILTER,
   LOWEST_PRICE_FILTER,
   MOST_RESENT_FILTER,
+  ADD_PRODUCT_CART,
+  CHANGE_PRODUCT_AMOUNT,
+  DELETE_PRODUCT_CART,
 } from './types';
 
 export const onLoad = () => ({ type: APP_LOADED });
@@ -37,6 +40,31 @@ export const handleFilterChange = (filterOption) => (dispatch) => {
     case 'Most Recent':
       return dispatch({ type: MOST_RESENT_FILTER });
     default:
-      break;
+      return;
   }
 };
+
+export const addProductToCart = (product) => ({
+  type: ADD_PRODUCT_CART,
+  product,
+});
+
+export const deleteProductFromCard = (id_product, price, amount) => ({
+  type: DELETE_PRODUCT_CART,
+  id_product,
+  price,
+  amount,
+});
+
+export const changeProductAmount = (
+  previousamount,
+  newAmount,
+  price,
+  productId
+) => ({
+  type: CHANGE_PRODUCT_AMOUNT,
+  previousamount,
+  newAmount,
+  price,
+  productId,
+});

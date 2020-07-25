@@ -12,7 +12,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from 'styles/productCardStyles';
 
-const ProductCard = ({ name, category, description, price, classes }) => (
+const ProductCard = ({
+  id_product,
+  name,
+  category,
+  description,
+  price,
+  handleAddToCart,
+  amount,
+  classes,
+}) => (
   <Card className={classes.root}>
     <CardMedia className={classes.media} image={imagePlacehodler} />
     <CardContent className={classes.content}>
@@ -28,7 +37,22 @@ const ProductCard = ({ name, category, description, price, classes }) => (
         </Typography>
       </div>
       <div className={classes.cardBottom}>
-        <Button variant="outlined">Add to Cart</Button>
+        <div className={classes.btnSpan}>
+          <Button
+            onClick={() =>
+              handleAddToCart({ id_product, name, category, price })
+            }
+            variant="outlined"
+            disabled={amount >= 5}
+          >
+            {amount >= 5 ? 'Max amount' : ' Add to Cart'}
+          </Button>
+          <Typography component="span" variant="body1">
+            {amount > 0
+              ? `${amount} product${amount > 1 ? 's' : ''} in cart`
+              : ''}
+          </Typography>
+        </div>
         <Typography>${price}</Typography>
       </div>
     </CardContent>
@@ -36,11 +60,14 @@ const ProductCard = ({ name, category, description, price, classes }) => (
 );
 
 ProductCard.propTypes = {
+  id_product: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
+  amount: PropTypes.number.isRequired,
 };
 
 export default withStyles(styles)(ProductCard);

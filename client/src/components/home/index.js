@@ -18,9 +18,10 @@ const Home = ({
   errorMsg,
   paginator,
   filter,
+  cartProducts,
   ...props
 }) => {
-  const { fetchProducts, handleFilterChange } = props; // Actions
+  const { fetchProducts, handleFilterChange, addProductToCart } = props; // Actions
   const classes = useStyles();
 
   useEffect(() => {
@@ -34,7 +35,6 @@ const Home = ({
   const pageChanged = (e, value) =>
     fetchProducts({ page: value, sort: filter.sort, dir: filter.dir });
   const filterChanged = (e) => handleFilterChange(e.target.value);
-
   if (isFetching) return <Loading />;
   if (errorMsg && !products.length) return <div>{errorMsg}</div>;
   return (
@@ -48,11 +48,22 @@ const Home = ({
         />
       </div>
       <ul className={classes.cardsContainer}>
-        {products.map((product, id) => (
-          <li className={classes.listItem} key={id}>
-            <ProductCard {...product} />
-          </li>
-        ))}
+        {products.map((product, id) => {
+          const cartProductIdx = cartProducts.findIndex(
+            ({ id_product }) => id_product === product.id_product
+          );
+          const amount =
+            cartProductIdx !== -1 ? cartProducts[cartProductIdx].amount : 0;
+          return (
+            <li className={classes.listItem} key={id}>
+              <ProductCard
+                {...product}
+                amount={amount}
+                handleAddToCart={addProductToCart}
+              />
+            </li>
+          );
+        })}
       </ul>
       {products.length >= 20 ? (
         <div className={classes.paginationWrapper}>
@@ -92,19 +103,30 @@ Home.propTypes = {
   }).isRequired,
   fetchProducts: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
+  addProductToCart: PropTypes.func.isRequired,
   filter: PropTypes.shape({
     sort: PropTypes.string,
     dir: PropTypes.string,
     option: PropTypes.string,
   }),
+  cartProducts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id_product: PropTypes.string,
+      amount: PropTypes.number,
+    })
+  ).isRequired,
 };
 
-const mapStateToProps = ({ products, filter }) => ({
+const mapStateToProps = ({ products, filter, cart }) => ({
   products: products.products,
   isFetching: products.isFetching,
   errorMsg: products.errorMsg,
   paginator: products.pagination,
   filter,
+  cartProducts: cart.products.map(({ id_product, amount }) => ({
+    id_product,
+    amount,
+  })),
 });
 
 export default connect(mapStateToProps, actions)(Home);

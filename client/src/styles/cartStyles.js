@@ -15,11 +15,12 @@ export default (theme) => ({
     padding: 0,
   },
   listItem: {
-    height: '320px',
+    height: '380px',
     width: '100%',
+    margin: '1em 0',
     [theme.breakpoints.up('md')]: {
       height: '140px',
-      padding: '1em',
+      margin: '1em',
     },
   },
   filterWrapper: {
@@ -39,9 +40,11 @@ export default (theme) => ({
   },
   bottom: {
     float: 'right',
-    padding: '0 1em 1em 0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+    [theme.breakpoints.up('md')]: {
+      padding: '0 1em 1em 0',
+    },
   },
 });

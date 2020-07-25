@@ -5,18 +5,11 @@ export default (theme) => ({
     width: '100%',
     height: '100%',
     minHeight: 'fit-content',
+    paddingTop: 0,
+    justifyContent: 'space-evenly',
     [theme.breakpoints.up('md')]: {
+      paddingTop: '1em',
       flexDirection: 'row',
-    },
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '70%',
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '60%',
-      height: '100%',
     },
   },
   media: {
@@ -25,6 +18,22 @@ export default (theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '20%',
     },
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: '70%',
+    width: '100%',
+    paddingTop: 0,
+    [theme.breakpoints.up('md')]: {
+      paddingTop: 'inherit',
+      width: '70%',
+      height: '100%',
+    },
+  },
+  delete: {
+    float: 'right',
+    padding: 0,
   },
   cardTop: {
     width: '60%',
@@ -41,9 +50,10 @@ export default (theme) => ({
     textOverflow: 'ellipsis',
   },
   contentBottom: {
-    padding: 0,
+    padding: '0 !important',
     [theme.breakpoints.up('md')]: {
-      width: '40%',
+      paddding: 'auto',
+      width: '30%',
       height: '100%',
     },
   },
