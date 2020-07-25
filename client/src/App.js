@@ -2,6 +2,7 @@ import { onLoad } from 'actions';
 import Container from 'components/Container';
 import Header from 'components/Header';
 import Home from 'components/home';
+import Cart from 'components/cart';
 import NotFound from 'components/NotFound';
 import PropTypes from 'prop-types';
 import React, { Suspense, useEffect } from 'react';
@@ -11,7 +12,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const App = ({ onLoad }) => {
   useEffect(() => {
     onLoad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -21,6 +21,7 @@ const App = ({ onLoad }) => {
         <Suspense>
           <Switch>
             <Route exact={true} path="/" component={Home} />
+            <Route path="/cart" component={Cart} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Suspense>

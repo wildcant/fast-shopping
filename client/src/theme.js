@@ -15,6 +15,11 @@ let theme = createMuiTheme({
     fontFamily: 'Signika, Arial',
   },
   overrides: {
+    MuiOutlinedInput: {
+      input: {
+        padding: '.4em',
+      },
+    },
     MuiCssBaseline: {
       '@global': {
         '@font-face': [...fonts],
