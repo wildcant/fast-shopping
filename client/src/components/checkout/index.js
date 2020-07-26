@@ -3,16 +3,19 @@ import { changeCustomerType } from 'actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
 import {
   AuthWrapper,
   CustomerSection,
   OrderSection,
   Section,
+  RightAlignDiv,
 } from 'styles/checkoutStyles';
 import AuthType from './AuthType';
 import CustomerAuth from './CustomerAuth';
+import ProductsTable from './ProductsTable';
 
-const Checkout = ({ changeCustomerType, type }) => {
+const Checkout = ({ type, cartProducts, total, changeCustomerType }) => {
   return (
     <Section>
       <CustomerSection>
@@ -24,6 +27,11 @@ const Checkout = ({ changeCustomerType, type }) => {
       </CustomerSection>
       <OrderSection>
         <Typography variant="h4">Order Summary</Typography>
+        <ProductsTable products={cartProducts} />
+        <RightAlignDiv>
+          <Typography variant="h5">Total: ${total.toFixed(2)}</Typography>
+          <Button variant="outlined">Place Order</Button>
+        </RightAlignDiv>
       </OrderSection>
     </Section>
   );
@@ -31,9 +39,21 @@ const Checkout = ({ changeCustomerType, type }) => {
 Checkout.propTypes = {
   changeCustomerType: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  cartProducts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id_product: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      category: PropTypes.string,
+      price: PropTypes.number,
+      amount: PropTypes.number,
+    })
+  ).isRequired,
+  total: PropTypes.number.isRequired,
 };
-const mapStateToProps = ({ customer }) => ({
+const mapStateToProps = ({ customer, cart }) => ({
   type: customer.type,
+  cartProducts: cart.products,
+  total: cart.total,
 });
 
 export default connect(mapStateToProps, { changeCustomerType })(Checkout);

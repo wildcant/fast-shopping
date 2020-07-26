@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { md } from './breakpoints';
-import { Button } from '@material-ui/core';
+import { Button, TableContainer, Paper } from '@material-ui/core';
 
 export const Section = styled.section`
   width: 100%;
@@ -15,12 +15,12 @@ export const Section = styled.section`
 
 export const CustomerSection = styled.div`
   @media only screen and (min-width: ${md}px) {
-    width: 44%;
+    width: 38%;
   }
 `;
 export const OrderSection = styled.div`
   @media only screen and (min-width: ${md}px) {
-    width: 54%;
+    width: 60%;
   }
 `;
 
@@ -59,4 +59,18 @@ export const Right = styled.div`
 `;
 export const Btn = styled(Button)`
   float: right;
+`;
+
+export const TableWraper = styled(Paper)`
+  width: 100%;
+`;
+export const TableContainerFixed = styled(TableContainer)`
+  max-height: 300px;
+`;
+export const RightAlignDiv = styled.div`
+  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1em 0;
 `;
