@@ -10,9 +10,10 @@ exports.save_user = (req, res, next) => {
       res.status(200).json({ msg: "SUCCESSFULLY_SAVED" });
     })
     .catch((err) => {
-      if (err.code == "ER_DUP_ENTRY")
-        res.status(200).json({ msg: "CUSTOMER_ALREADY_SIGNED" });
-      else next(err);
+      if (err.code == "ER_DUP_ENTRY") {
+        res.statusMessage = "Email already registered";
+        res.status(400).send("CUSTOMER_ALREADY_SIGNED");
+      } else next(err);
     });
 };
 
@@ -20,7 +21,7 @@ exports.getuser = async (req, res) => {
   try {
     const user = await get_user_by_email(req.query.email.toLowerCase());
     if (Object.entries(user).length === 0)
-      return res.status(200).json({ msg: "CUSTOMER_NOT_FOUND" });
+      return res.status(400).send("CUSTOMER_NOT_FOUND");
     else return res.status(200).json(user);
   } catch (err) {
     res.status(400).send(err);
