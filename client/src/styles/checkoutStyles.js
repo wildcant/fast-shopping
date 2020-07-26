@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { md } from './breakpoints';
-import { Button, TableContainer, Paper } from '@material-ui/core';
+import { Button, TableContainer, Paper, Typography } from '@material-ui/core';
 
 export const Section = styled.section`
   width: 100%;
@@ -36,7 +36,7 @@ export const RatioWrapper = styled.div`
 
 export const AuthWrapper = styled.div`
   border: 1px solid;
-  padding: '1em 3em';
+  padding: 1em;
 `;
 
 export const StyledDiv = styled.div`
@@ -46,15 +46,14 @@ export const StyledDiv = styled.div`
 `;
 export const Left = styled.div`
   @media only screen and (min-width: ${md}px) {
-    width: 20%;
-    text-align: right;
+    width: 15%;
   }
 `;
 export const Right = styled.div`
   width: 100%;
   @media only screen and (min-width: ${md}px) {
-    width: 80%;
-    padding: 0 2em;
+    width: 85%;
+    padding: 0 1em;
   }
 `;
 export const Btn = styled(Button)`
@@ -73,4 +72,16 @@ export const RightAlignDiv = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding: 1em 0;
+`;
+export const DataWrapper = styled.div`
+  & h4 {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+  }
+`;
+export const LinkStyle = styled(Typography)`
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 1rem;
 `;

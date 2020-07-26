@@ -1,33 +1,25 @@
-import { TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Btn, Left, Right, StyledDiv } from 'styles/checkoutStyles';
+import { StyledDiv } from 'styles/checkoutStyles';
 import CustomerForm from './CustomerForm';
+import CustomerByEmail from './CustomerByEmail';
 
-const CustomerAuth = ({ type }) => {
+const CustomerAuth = ({ type, formRef }) => {
   return (
     <StyledDiv>
-      <Left />
-      <Right>
-        {type === 'new' ? (
-          <CustomerForm />
-        ) : (
-          <>
-            <TextField
-              fullWidth
-              required
-              margin="dense"
-              label="Email"
-              variant="outlined"
-            />
-            <Btn variant="outlined">Lookup</Btn>
-          </>
-        )}
-      </Right>
+      {type === 'new' ? (
+        <CustomerForm formRef={formRef} />
+      ) : (
+        <CustomerByEmail />
+      )}
     </StyledDiv>
   );
 };
 CustomerAuth.propTypes = {
   type: PropTypes.string.isRequired,
+  formRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 };
 export default CustomerAuth;

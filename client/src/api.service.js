@@ -9,4 +9,6 @@ export default {
     url += dir ? `&dir=${dir}` : '';
     return axios.get(url);
   },
+  fetchCustomerByEmail: (email) => axios.get(`/api/users?email=${email}`),
+  saveCustomer: (customer) => axios.post('/api/users/save', customer),
 };

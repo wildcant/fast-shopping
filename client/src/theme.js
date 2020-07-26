@@ -25,6 +25,11 @@ let theme = createMuiTheme({
         transform: 'translate(14px, 10px) scale(1)',
       },
     },
+    MuiFormHelperText: {
+      marginDense: {
+        marginTop: 0,
+      },
+    },
     MuiCssBaseline: {
       '@global': {
         '@font-face': [...fonts],

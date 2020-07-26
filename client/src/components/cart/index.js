@@ -1,18 +1,18 @@
-import React from 'react';
-import { Typography, Button } from '@material-ui/core';
-import ShopingCard from './ShoppingCard';
+import { Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import styles from 'styles/cartStyles';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import * as actions from 'actions';
-
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import styles from 'styles/cartStyles';
+import ShopingCard from './ShoppingCard';
 const useStyles = makeStyles(styles);
 
 const Cart = ({ products, total, ...props }) => {
   const { changeProductAmount, deleteProductFromCard } = props;
   const classes = useStyles();
+  const history = useHistory();
   return (
     <>
       <div className={classes.top}>
@@ -35,7 +35,9 @@ const Cart = ({ products, total, ...props }) => {
       </NavLink>
       <div className={classes.bottom}>
         <Typography variant="h4">Total: ${total.toFixed(2)}</Typography>
-        <Button variant="outlined">Check Out</Button>
+        <Button variant="outlined" onClick={() => history.push('checkout')}>
+          Check Out
+        </Button>
       </div>
     </>
   );

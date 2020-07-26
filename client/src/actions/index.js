@@ -11,12 +11,20 @@ import {
   CHANGE_PRODUCT_AMOUNT,
   DELETE_PRODUCT_CART,
   CHANGE_CUSTOMER_TYPE,
+  GET_CUSTOMER,
+  GET_CUSTOMER_SUCCESS,
+  GET_CUSTOMER_FAIL,
+  CHANGE_EMAIL,
+  DELETE_CUSTOMER_DATA,
+  SAVE_CUSTOMER,
+  SAVE_CUSTOMER_SUCCESS,
+  SAVE_CUSTOMER_FAIL,
 } from './types';
 
 export const onLoad = () => ({ type: APP_LOADED });
 
 export const fetchProducts = (filter) => (dispatch) => {
-  dispatch({ type: FETCH_PRODUCTS_REQUEST, filter });
+  dispatch({ type: FETCH_PRODUCTS_REQUEST });
   return api.fetchProducts(filter).then(
     (response) => {
       dispatch({
@@ -74,3 +82,47 @@ export const changeCustomerType = (value) => ({
   type: CHANGE_CUSTOMER_TYPE,
   value,
 });
+
+export const customerByEmail = (e, email) => (dispatch) => {
+  e.preventDefault();
+  console.log(email);
+  dispatch({ type: GET_CUSTOMER });
+  api.fetchCustomerByEmail(email).then(
+    (response) => {
+      dispatch({ type: GET_CUSTOMER_SUCCESS, customer: response.data });
+    },
+    (error) => {
+      dispatch({ type: GET_CUSTOMER_FAIL, message: error.message || 'Failed' });
+    }
+  );
+};
+
+export const changeEmail = (e) => ({
+  type: CHANGE_EMAIL,
+  value: e.target.value,
+});
+
+export const resetData = () => ({
+  type: DELETE_CUSTOMER_DATA,
+});
+
+export const saveCustomer = (customer, ownProps) => (dispatch) => {
+  dispatch({ type: SAVE_CUSTOMER });
+  api.saveCustomer(customer).then(
+    (response) => {
+      dispatch({
+        type: SAVE_CUSTOMER_SUCCESS,
+        customer: response.data,
+      });
+      ownProps.history.push('thanks');
+    },
+    (error) => {
+      console.log({ ...error });
+      console.log(error.statusText);
+      dispatch({
+        type: SAVE_CUSTOMER_FAIL,
+        message: error.response.statusText || error.message || 'Failed',
+      });
+    }
+  );
+};
