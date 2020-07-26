@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
-import common from './common';
-import products from './products';
-import filter from './filter';
 import cart from './cart';
+import common from './common';
+import customer from './customer';
+import filter from './filter';
+import products from './products';
 
 export default combineReducers({
   common,
   products,
   filter,
   cart,
+  customer,
 });

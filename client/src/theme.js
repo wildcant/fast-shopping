@@ -20,6 +20,11 @@ let theme = createMuiTheme({
         padding: '.4em',
       },
     },
+    MuiInputLabel: {
+      outlined: {
+        transform: 'translate(14px, 10px) scale(1)',
+      },
+    },
     MuiCssBaseline: {
       '@global': {
         '@font-face': [...fonts],

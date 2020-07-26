@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import React, { Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Checkout from 'components/checkout';
 
 const App = ({ onLoad }) => {
   useEffect(() => {
@@ -22,6 +23,7 @@ const App = ({ onLoad }) => {
           <Switch>
             <Route exact={true} path="/" component={Home} />
             <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={Checkout} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Suspense>

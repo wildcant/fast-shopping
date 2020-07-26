@@ -10,6 +10,7 @@ import {
   ADD_PRODUCT_CART,
   CHANGE_PRODUCT_AMOUNT,
   DELETE_PRODUCT_CART,
+  CHANGE_CUSTOMER_TYPE,
 } from './types';
 
 export const onLoad = () => ({ type: APP_LOADED });
@@ -67,4 +68,9 @@ export const changeProductAmount = (
   newAmount,
   price,
   productId,
+});
+
+export const changeCustomerType = (value) => ({
+  type: CHANGE_CUSTOMER_TYPE,
+  value,
 });
