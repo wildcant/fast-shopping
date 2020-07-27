@@ -255,4 +255,11 @@ const cartInitialState = {
     .reduce((total, price) => total + price),
 };
 
-export { productsPage, threeProductsPage, cartInitialState };
+const customer = {
+  email: 'sample.mail@test.com',
+  name: 'Jhon Foo',
+  id: 99,
+  address: '2495  Mahlon Street',
+};
+
+export { productsPage, threeProductsPage, cartInitialState, customer };

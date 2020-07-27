@@ -4,13 +4,13 @@ import { StyledDiv } from 'styles/checkoutStyles';
 import CustomerForm from './CustomerForm';
 import CustomerByEmail from './CustomerByEmail';
 
-const CustomerAuth = ({ type, formRef }) => {
+const CustomerAuth = ({ type, formRef, emailRef }) => {
   return (
     <StyledDiv>
       {type === 'new' ? (
         <CustomerForm formRef={formRef} />
       ) : (
-        <CustomerByEmail />
+        <CustomerByEmail emailRef={emailRef} />
       )}
     </StyledDiv>
   );
@@ -18,6 +18,10 @@ const CustomerAuth = ({ type, formRef }) => {
 CustomerAuth.propTypes = {
   type: PropTypes.string.isRequired,
   formRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
+  emailRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any }),
   ]),

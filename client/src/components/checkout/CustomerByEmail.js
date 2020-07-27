@@ -1,5 +1,4 @@
 import { TextField, Typography } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import * as actions from 'actions';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -12,9 +11,16 @@ import {
   Right,
 } from 'styles/checkoutStyles';
 
-const CustomerByEmail = ({ email, loading, data, errorMsg, ...props }) => {
+const CustomerByEmail = ({
+  email,
+  loading,
+  data,
+  errorMsg,
+  emailRef,
+  ...props
+}) => {
   const { changeEmail, customerByEmail, resetData } = props;
-  if (loading) return <CircularProgress />;
+  if (loading) return <Typography variant="body1">Loading...</Typography>;
   if (data.name !== '')
     return (
       <DataWrapper>
@@ -36,12 +42,15 @@ const CustomerByEmail = ({ email, loading, data, errorMsg, ...props }) => {
     <>
       <Left />
       <Right>
-        <form onSubmit={(e) => customerByEmail(e, email)}>
+        <form aria-label="form" onSubmit={(e) => customerByEmail(e, email)}>
           <TextField
             fullWidth
+            inputRef={emailRef}
             required
             margin="dense"
             label="Email"
+            InputLabelProps={{ htmlFor: 'email' }}
+            id="email"
             variant="outlined"
             type="email"
             value={email}
@@ -68,9 +77,13 @@ CustomerByEmail.propTypes = {
     name: PropTypes.string,
     id: PropTypes.number,
     address: PropTypes.string,
-    phone: PropTypes.number,
+    phone: PropTypes.string,
   }),
   errorMsg: PropTypes.string,
+  emailRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 };
 
 const mapStateToProps = ({ customer: { data, isLoading, errorMsg } }) => ({

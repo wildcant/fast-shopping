@@ -7,7 +7,11 @@ import {
   TableBody,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { TableWraper, TableContainerFixed } from 'styles/checkoutStyles';
+import {
+  TableWraper,
+  TableContainerFixed,
+  ColumnHeader,
+} from 'styles/checkoutStyles';
 
 const ProductsTable = ({ products }) => (
   <TableWraper>
@@ -15,10 +19,10 @@ const ProductsTable = ({ products }) => (
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Product</TableCell>
-            <TableCell>Unit Price</TableCell>
-            <TableCell>Units</TableCell>
-            <TableCell>Total Price</TableCell>
+            <ColumnHeader>Product</ColumnHeader>
+            <ColumnHeader>Unit Price</ColumnHeader>
+            <ColumnHeader>Units</ColumnHeader>
+            <ColumnHeader>Total Price</ColumnHeader>
           </TableRow>
         </TableHead>
         <TableBody>

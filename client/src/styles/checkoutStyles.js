@@ -1,6 +1,12 @@
 import styled from 'styled-components';
-import { md } from './breakpoints';
-import { Button, TableContainer, Paper, Typography } from '@material-ui/core';
+import { sm, md } from './breakpoints';
+import {
+  Button,
+  TableContainer,
+  Paper,
+  Typography,
+  TableCell,
+} from '@material-ui/core';
 
 export const Section = styled.section`
   width: 100%;
@@ -64,7 +70,10 @@ export const TableWraper = styled(Paper)`
   width: 100%;
 `;
 export const TableContainerFixed = styled(TableContainer)`
-  max-height: 300px;
+  max-height: 80vh;
+  @media only screen and (min-width: ${sm}px) {
+    max-height: 300px;
+  }
 `;
 export const RightAlignDiv = styled.div`
   float: right;
@@ -84,4 +93,13 @@ export const LinkStyle = styled(Typography)`
   text-decoration: underline;
   cursor: pointer;
   margin-top: 1rem;
+`;
+
+export const ColumnHeader = styled(TableCell)`
+  @media only screen and (min-width: ${sm}px) {
+    white-space: nowrap;
+  }
+`;
+export const ErrorMessage = styled(Typography)`
+  display: flex;
 `;

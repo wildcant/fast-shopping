@@ -15,11 +15,13 @@ const defaultData = {
   name: '',
   id: 0,
   address: '',
-  phone: 0,
-  email: '',
+  phone: '',
+  email: 'sample.mail@test.com',
 };
 const data = (state = defaultData, action) => {
   switch (action.type) {
+    case SAVE_CUSTOMER_SUCCESS:
+      return action.customer;
     case GET_CUSTOMER_SUCCESS:
       return action.customer;
     case CHANGE_EMAIL:
@@ -58,6 +60,7 @@ const errorMsg = (state = null, action) => {
     case SAVE_CUSTOMER_SUCCESS:
     case GET_CUSTOMER:
     case GET_CUSTOMER_SUCCESS:
+    case CHANGE_CUSTOMER_TYPE:
       return null;
     default:
       return state;

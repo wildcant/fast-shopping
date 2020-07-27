@@ -13,11 +13,28 @@ import {
 import AuthType from './AuthType';
 import CustomerAuth from './CustomerAuth';
 import ProductsTable from './ProductsTable';
+import { useHistory } from 'react-router-dom';
 
-const Checkout = ({ type, cartProducts, total, changeCustomerType }) => {
+const Checkout = ({ type, cartProducts, total, data, changeCustomerType }) => {
+  const history = useHistory();
   const formRef = useRef(null);
-  const placeOrder = () =>
-    formRef.current.dispatchEvent(new Event('submit', { cancelable: true }));
+  const emailRef = useRef(null);
+  const placeOrder = () => {
+    if (type == 'new') {
+      formRef.current.dispatchEvent(new Event('submit', { cancelable: true }));
+    } else {
+      const customer = { ...data };
+      delete customer['phone'];
+      const isCustomer = Object.values(customer).every(
+        (field) => field !== 0 && field !== ''
+      );
+      if (isCustomer) {
+        history.push('/thanks');
+      } else {
+        emailRef.current.focus();
+      }
+    }
+  };
 
   return (
     <Section>
@@ -25,7 +42,7 @@ const Checkout = ({ type, cartProducts, total, changeCustomerType }) => {
         <Typography variant="h4">Customer Information</Typography>
         <AuthWrapper>
           <AuthType handleChange={changeCustomerType} value={type} />
-          <CustomerAuth type={type} formRef={formRef} />
+          <CustomerAuth type={type} formRef={formRef} emailRef={emailRef} />
         </AuthWrapper>
       </CustomerSection>
       <OrderSection>
@@ -33,7 +50,11 @@ const Checkout = ({ type, cartProducts, total, changeCustomerType }) => {
         <ProductsTable products={cartProducts} />
         <RightAlignDiv>
           <Typography variant="h5">Total: ${total.toFixed(2)}</Typography>
-          <Button variant="outlined" onClick={() => placeOrder()}>
+          <Button
+            type={type === 'new' ? 'submit' : 'button'}
+            variant="outlined"
+            onClick={() => placeOrder()}
+          >
             Place Order
           </Button>
         </RightAlignDiv>
@@ -54,11 +75,18 @@ Checkout.propTypes = {
     })
   ).isRequired,
   total: PropTypes.number.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number,
+    address: PropTypes.string,
+    phone: PropTypes.string,
+  }),
 };
 const mapStateToProps = ({ customer, cart }) => ({
   type: customer.type,
   cartProducts: cart.products,
   total: cart.total,
+  data: customer.data,
 });
 
 export default connect(mapStateToProps, { changeCustomerType })(Checkout);

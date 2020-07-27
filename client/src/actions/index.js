@@ -108,17 +108,25 @@ export const resetData = () => ({
 export const saveCustomer = (customer, ownProps) => (dispatch) => {
   dispatch({ type: SAVE_CUSTOMER });
   api.saveCustomer(customer).then(
+    // eslint-disable-next-line no-unused-vars
     (response) => {
       dispatch({
         type: SAVE_CUSTOMER_SUCCESS,
-        customer: response.data,
+        customer,
       });
       ownProps.history.push('/thanks');
     },
     (error) => {
       dispatch({
         type: SAVE_CUSTOMER_FAIL,
-        message: error.response.statusText || error.message || 'Failed',
+        message:
+          error.response.statusText +
+            '\n' +
+            (error.response.data.errors
+              ? error.response.data.errors.message
+              : '') ||
+          error.message ||
+          'Failed',
       });
     }
   );
