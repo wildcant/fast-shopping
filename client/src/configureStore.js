@@ -14,7 +14,7 @@ const configureStore = () => {
   const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['filter', 'cart'],
+    whitelist: ['cart'],
     stateReconciler: autoMergeLevel1,
   };
   const persistedReducer = persistReducer(persistConfig, rootReducer);

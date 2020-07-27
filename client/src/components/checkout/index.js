@@ -1,15 +1,14 @@
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { changeCustomerType } from 'actions';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
 import {
   AuthWrapper,
   CustomerSection,
   OrderSection,
-  Section,
   RightAlignDiv,
+  Section,
 } from 'styles/checkoutStyles';
 import AuthType from './AuthType';
 import CustomerAuth from './CustomerAuth';
@@ -17,9 +16,6 @@ import ProductsTable from './ProductsTable';
 
 const Checkout = ({ type, cartProducts, total, changeCustomerType }) => {
   const formRef = useRef(null);
-  useEffect(() => {
-    console.log(formRef);
-  }, []);
   const placeOrder = () =>
     formRef.current.dispatchEvent(new Event('submit', { cancelable: true }));
 

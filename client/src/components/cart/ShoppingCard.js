@@ -60,6 +60,7 @@ const ShoppingCard = ({
               native
               variant="outlined"
               value={amount}
+              inputProps={{ 'aria-label': 'qty' }}
               onChange={(e) =>
                 handleAmountChange(
                   amount,

@@ -15,7 +15,7 @@ const SelectFilter = ({ selectedOption, options, handleSelect }) => {
       onChange={handleSelect}
       variant="outlined"
       renderValue={(selected) => selected}
-      inputProps={{ 'aria-label': 'Without label' }}
+      inputProps={{ 'aria-label': 'filter' }}
     >
       {options.map((option, id) => (
         <MenuItem key={id} id={id} value={option}>

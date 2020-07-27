@@ -4,7 +4,7 @@ import * as actions from 'actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styles from 'styles/cartStyles';
 import ShopingCard from './ShoppingCard';
 const useStyles = makeStyles(styles);
@@ -17,7 +17,9 @@ const Cart = ({ products, total, ...props }) => {
     <>
       <div className={classes.top}>
         <Typography variant="h3">Shopping Cart</Typography>
-        <Button variant="outlined">Check Out</Button>
+        <Button variant="outlined" onClick={() => history.push('/checkout')}>
+          Check Out
+        </Button>
       </div>
       <ul className={classes.cardsContainer}>
         {products.map((product, id) => (
@@ -30,12 +32,12 @@ const Cart = ({ products, total, ...props }) => {
           </li>
         ))}
       </ul>
-      <NavLink to="/" className={classes.link}>
+      <Link to="/" className={classes.link}>
         Continue Shopping
-      </NavLink>
+      </Link>
       <div className={classes.bottom}>
         <Typography variant="h4">Total: ${total.toFixed(2)}</Typography>
-        <Button variant="outlined" onClick={() => history.push('checkout')}>
+        <Button variant="outlined" onClick={() => history.push('/checkout')}>
           Check Out
         </Button>
       </div>
