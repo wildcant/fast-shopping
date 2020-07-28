@@ -1,6 +1,6 @@
 const { products_get_chunk } = require("../models/products.model");
 
-exports.products_paginated = async (req, res) => {
+exports.products_paginated = async (req, res, next) => {
   const { page, sortBy, dir } = req.query;
   try {
     const currentPage = page == undefined ? 1 : page;
@@ -10,6 +10,6 @@ exports.products_paginated = async (req, res) => {
     response.isLastPage = currentPage == response.numberOfPages ? true : false;
     res.status(200).json(response);
   } catch (error) {
-    res.status(400).send(error);
+    next(error);
   }
 };

@@ -2,8 +2,6 @@
 {
   "files.exclude": {
     "**/*.git": true,
-    "**/*.md": true,
     "node_modules/": true,
-    "client": true
   }
 }

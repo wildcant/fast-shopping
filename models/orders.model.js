@@ -1,12 +1,12 @@
 const { getConnection } = require("../config/db");
 
-exports.create_customer = (user_data) =>
+exports.create_order = (order_data) =>
   new Promise((resolve, reject) =>
     getConnection((err, connection) => {
       if (err) reject(err);
       connection.query(
-        `INSERT INTO users (email, name, id, address, phone) VALUES (?, ?, ?, ?, ?)`,
-        user_data,
+        `INSERT INTO orders ( id_order, id_user, total_price) VALUES  (?, ?, ?);`,
+        order_data,
         (error, response) => {
           connection.release();
           if (error) reject(error);
@@ -16,18 +16,17 @@ exports.create_customer = (user_data) =>
     })
   );
 
-exports.get_user_by_email = (email) =>
+exports.create_order_item = (order_item) =>
   new Promise((resolve, reject) =>
     getConnection((err, connection) => {
       if (err) reject(err);
       connection.query(
-        `SELECT * FROM users WHERE email = ?`,
-        [email],
-        (error, userData) => {
+        `INSERT INTO order_items ( id_order, id_user, id_product, quantity) VALUES (?, ?, ?, ?)`,
+        order_item,
+        (error, response) => {
           connection.release();
           if (error) reject(error);
-          let user = Object.assign({}, userData[0]);
-          resolve(user);
+          resolve(response);
         }
       );
     })

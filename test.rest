@@ -1,15 +1,32 @@
 GET http://localhost:8080/api/products?page=1&sortBy=id_product&dir=desc
 
 ###
-GET http://localhost:8080/api/users?email=sample.mail@test.co
+GET http://localhost:8080/api/users?email=jhondoe@email.com
 
 ###
 POST http://localhost:8080/api/users/save
 Content-Type: application/json
 
 {
-  "email": "sample.mail@test.com",
+  "email": "jhondoe@email.co",
   "name": "Jhon Doe",
-  "id":"99",
-  "address": "2495  Mahlon Street",
+  "id": 123456,
+  "address": "Main Street, #100-200, Wondreland",
+  "phone": "000 000 00 00"
+}
+
+###
+POST http://localhost:8080/api/orders/save
+Content-Type: application/json
+
+{
+  "id_user": 4,
+  "id_order": "eWRhpRV",
+  "total_price": 359.02,
+  "products": [
+    {"id_product": "0172e9caba8351ea12832e4c42e0c840", "quantity": 5},
+    {"id_product": "03a35de3f7af9814978e6de645cb8ffa", "quantity": 2},
+    {"id_product": "0ecb946acda4fd2a96e37d3293428aa0", "quantity": 1},
+    {"id_product": "0ca63377ca8015e585efa1d418f04756", "quantity": 1}
+  ]
 }

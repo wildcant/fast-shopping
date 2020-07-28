@@ -7,12 +7,12 @@ exports.products_get_chunk = (startIndex, orderParam, direction) =>
       let response = {};
       connection.query("SELECT COUNT(*) FROM products", (error, pages) => {
         if (error) reject(error);
-        let querySrt = "SELECT * FROM products";
-        querySrt += orderParam ? ` ORDER BY ${orderParam}` : "";
-        querySrt += direction ? ` ${direction}` : "";
-        querySrt += ` LIMIT ${startIndex},20`;
+        let queryStr = "SELECT * FROM products";
+        queryStr += orderParam ? ` ORDER BY ${orderParam}` : "";
+        queryStr += direction ? ` ${direction}` : "";
+        queryStr += ` LIMIT ${startIndex},20`;
         // `SELECT * FROM products ORDER BY ${orderParam} ${direction} LIMIT ${startIndex},20`
-        connection.query(querySrt, (error, products) => {
+        connection.query(queryStr, (error, products) => {
           if (error) reject(error);
           connection.release();
           response.products = products;
