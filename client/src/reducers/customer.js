@@ -13,11 +13,12 @@ import {
 import { combineReducers } from 'redux';
 
 const defaultData = {
+  id_user: 0,
   name: '',
   id: 0,
   address: '',
   phone: '',
-  email: 'sample.mail@test.com',
+  email: '',
 };
 const data = (state = defaultData, action) => {
   switch (action.type) {

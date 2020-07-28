@@ -12,4 +12,5 @@ export default {
   },
   fetchCustomerByEmail: (email) => axios.get(`/api/users?email=${email}`),
   saveCustomer: (customer) => axios.post('/api/users/save', customer),
+  saveOrder: (order) => axios.post('/api/orders/save', order),
 };

@@ -1,3 +1,4 @@
+import shortid from 'shortid';
 import api from '../api.service';
 import {
   ADD_PRODUCT_CART,
@@ -21,10 +22,12 @@ import {
   SAVE_CUSTOMER_SUCCESS,
   START_AGAIN,
   PLACE_ORDER,
+  PLACE_ORDER_SUCCESS,
+  PLACE_ORDER_FAIL,
 } from './types';
 
+// Home
 export const onLoad = () => ({ type: APP_LOADED });
-
 export const fetchProducts = (filter) => async (dispatch) => {
   dispatch({ type: FETCH_PRODUCTS_REQUEST });
   try {
@@ -40,7 +43,6 @@ export const fetchProducts = (filter) => async (dispatch) => {
     });
   }
 };
-
 export const handleFilterChange = (filterOption) => (dispatch) => {
   switch (filterOption) {
     case 'Most Relevant':
@@ -54,18 +56,17 @@ export const handleFilterChange = (filterOption) => (dispatch) => {
   }
 };
 
+// Cart
 export const addProductToCart = (product) => ({
   type: ADD_PRODUCT_CART,
   product,
 });
-
 export const deleteProductFromCard = (id_product, price, amount) => ({
   type: DELETE_PRODUCT_CART,
   id_product,
   price,
   amount,
 });
-
 export const changeProductAmount = (
   previousamount,
   newAmount,
@@ -79,11 +80,11 @@ export const changeProductAmount = (
   productId,
 });
 
+// Checkout
 export const changeCustomerType = (value) => ({
   type: CHANGE_CUSTOMER_TYPE,
   value,
 });
-
 export const customerByEmail = (e, email) => async (dispatch) => {
   e.preventDefault();
   dispatch({ type: GET_CUSTOMER });
@@ -94,32 +95,29 @@ export const customerByEmail = (e, email) => async (dispatch) => {
     dispatch({ type: GET_CUSTOMER_FAIL, message: error.message || 'Failed' });
   }
 };
-
 export const changeEmail = (e) => ({
   type: CHANGE_EMAIL,
   value: e.target.value,
 });
-
 export const resetData = () => ({
   type: DELETE_CUSTOMER_DATA,
 });
-
 export const saveCustomer = (customer, ownProps) => async (dispatch) => {
   dispatch({ type: SAVE_CUSTOMER });
+  customer = { ...customer, id: parseInt(customer.id) };
   try {
-    await api.saveCustomer(customer);
+    const response = await api.saveCustomer(customer);
+    const { id_user } = response.data;
     dispatch({
       type: SAVE_CUSTOMER_SUCCESS,
-      customer,
+      customer: { ...customer, id_user },
     });
-    dispatch({ type: PLACE_ORDER });
-    ownProps.history.push('/thanks');
+    dispatch(placeOrder(ownProps));
   } catch (error) {
     dispatch({
       type: SAVE_CUSTOMER_FAIL,
       message:
         error.response.statusText +
-          '\n' +
           (error.response.data.errors
             ? error.response.data.errors.message
             : '') ||
@@ -128,6 +126,27 @@ export const saveCustomer = (customer, ownProps) => async (dispatch) => {
     });
   }
 };
+export const placeOrder = (ownProps) => async (dispatch, getState) => {
+  const state = getState();
+  dispatch({ type: PLACE_ORDER });
+  try {
+    const id_order = shortid.generate();
+    const body = {
+      id_order,
+      id_user: state.customer.data.id_user,
+      total_price: state.cart.total,
+      products: state.cart.products.map((p) => ({
+        id_product: p.id_product,
+        quantity: p.amount,
+      })),
+    };
+    await api.saveOrder(body);
+    dispatch({ type: PLACE_ORDER_SUCCESS, id_order });
+    ownProps.history.push('/thanks');
+  } catch (error) {
+    dispatch({ type: PLACE_ORDER_FAIL, message: error.message });
+  }
+};
 
-export const placeOrder = () => ({ type: PLACE_ORDER });
+//Thanks
 export const startAgain = () => ({ type: START_AGAIN });

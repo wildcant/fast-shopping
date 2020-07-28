@@ -13,7 +13,8 @@ import {
 import AuthType from './AuthType';
 import CustomerAuth from './CustomerAuth';
 import ProductsTable from './ProductsTable';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import LoadingCircular from '../LoadingCircular';
 
 const Checkout = ({
   type,
@@ -21,10 +22,11 @@ const Checkout = ({
   total,
   data,
   productsLength,
+  isSaving,
+  errorMsg,
   changeCustomerType,
   placeOrder,
 }) => {
-  const history = useHistory();
   const formRef = useRef(null);
   const emailRef = useRef(null);
   const handlePlaceOrder = () => {
@@ -38,13 +40,13 @@ const Checkout = ({
       );
       if (isCustomer) {
         placeOrder();
-        history.push('/thanks');
       } else {
         emailRef.current.focus();
       }
     }
   };
-
+  if (isSaving) return <LoadingCircular open={isSaving} />;
+  if (errorMsg) return <div>{errorMsg}</div>;
   return (
     <Section>
       <CustomerSection>
@@ -85,6 +87,7 @@ Checkout.propTypes = {
   ).isRequired,
   total: PropTypes.number.isRequired,
   data: PropTypes.shape({
+    id_user: PropTypes.number,
     name: PropTypes.string,
     id: PropTypes.number,
     address: PropTypes.string,
@@ -93,15 +96,24 @@ Checkout.propTypes = {
   productsLength: PropTypes.number.isRequired,
   changeCustomerType: PropTypes.func.isRequired,
   placeOrder: PropTypes.func.isRequired,
+  isSaving: PropTypes.bool.isRequired,
+  errorMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 };
-const mapStateToProps = ({ customer, cart }) => ({
+const mapStateToProps = ({ customer, cart, order }) => ({
   type: customer.type,
   cartProducts: cart.products,
   productsLength: cart.productsLength,
   total: cart.total,
   data: customer.data,
+  isSaving: order.isSaving,
+  errorMsg: order.errorMsg,
 });
 
-export default connect(mapStateToProps, { changeCustomerType, placeOrder })(
-  Checkout
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  changeCustomerType: (value) => dispatch(changeCustomerType(value)),
+  placeOrder: () => dispatch(placeOrder(ownProps)),
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Checkout)
 );

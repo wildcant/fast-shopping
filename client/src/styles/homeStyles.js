@@ -20,9 +20,12 @@ export default (theme) => ({
       height: '300px',
     },
     [theme.breakpoints.up('md')]: {
-      height: '300px',
+      height: '350px',
       width: '50%',
       padding: '1em',
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: '300px',
     },
   },
   filterWrapper: {

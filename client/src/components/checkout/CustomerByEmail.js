@@ -44,6 +44,7 @@ const CustomerByEmail = ({
       <Right>
         <form aria-label="form" onSubmit={(e) => customerByEmail(e, email)}>
           <TextField
+            placeholder="jhondoe@email.co"
             fullWidth
             inputRef={emailRef}
             required
@@ -74,12 +75,13 @@ CustomerByEmail.propTypes = {
   email: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   data: PropTypes.shape({
+    id_user: PropTypes.number,
     name: PropTypes.string,
     id: PropTypes.number,
     address: PropTypes.string,
     phone: PropTypes.string,
   }),
-  errorMsg: PropTypes.string,
+  errorMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   emailRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any }),

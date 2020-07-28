@@ -2,11 +2,11 @@ import { TextField, Typography } from '@material-ui/core';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import { saveCustomer } from 'actions';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Left, Right, ErrorMessage } from 'styles/checkoutStyles';
+import { ErrorMessage, Left, Right } from 'styles/checkoutStyles';
 
 const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -36,6 +36,7 @@ const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {
         )}
         <form aria-label="form" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
           <TextField
+            placeholder="Jhon Doe"
             fullWidth
             required
             margin="dense"
@@ -49,10 +50,12 @@ const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {
             helperText={errors.name ? 'This field is required' : ''}
           />
           <TextField
+            placeholder={123456}
             fullWidth
             required
             margin="dense"
             label="ID"
+            type="number"
             InputLabelProps={{ htmlFor: 'id' }}
             id="id"
             variant="outlined"
@@ -62,6 +65,7 @@ const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {
             helperText={errors.id ? 'This field is required' : ''}
           />
           <TextField
+            placeholder="Main Street, #100-200, Wondreland"
             fullWidth
             required
             margin="dense"
@@ -85,6 +89,7 @@ const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {
             inputRef={register()}
           />
           <TextField
+            placeholder="jhondoe@email.co"
             fullWidth
             required
             margin="dense"
@@ -112,14 +117,10 @@ CustomerForm.propTypes = {
   saveCustomer: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   errorMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-  redirectTo: PropTypes.string,
 };
-const mapStateToProps = ({
-  customer: { isLoading, errorMsg, redirectTo },
-}) => ({
+const mapStateToProps = ({ customer: { isLoading, errorMsg } }) => ({
   loading: isLoading,
   errorMsg,
-  redirectTo,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

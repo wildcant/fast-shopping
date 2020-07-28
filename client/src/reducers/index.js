@@ -4,6 +4,7 @@ import common from './common';
 import customer from './customer';
 import filter from './filter';
 import products from './products';
+import order from './order';
 
 export default combineReducers({
   common,
@@ -11,4 +12,5 @@ export default combineReducers({
   filter,
   cart,
   customer,
+  order,
 });
