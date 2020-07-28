@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="logo"
-    src="https://raw.githubusercontent.com/CwirL/fast-shopping/master/public/er-diagram.png"
+    src="https://raw.githubusercontent.com/CwirL/fast-shopping/master/client/src/assets/images/logo.svg"
   />
 </a>
 
@@ -28,7 +28,8 @@ Before you begin, ensure you have met the following requirements:
 
 In order to to create the data base you can use the [model](https://github.com/CwirL/fast-shopping/blob/master/db/fast_shopping_app.mwb) which you can forward  or use the [SQL script](https://github.com/CwirL/fast-shopping/blob/master/db/database.sql). There is also some test data to fill the products table at [products_data.sql](https://github.com/CwirL/fast-shopping/blob/master/db/products_data.sql), fill free to use it.
 
-![DB ER Diagram](https://github.com/CwirL/fast-shopping/blob/master/public/er-diagram.png?raw=true "ER Diagram"]
+DB ER Diagram
+![DB ER Diagram](https://github.com/CwirL/fast-shopping/blob/master/public/er-diagram.png?raw=true]
 
 ## Installing Fast Shopping
 
