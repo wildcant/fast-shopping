@@ -50,7 +50,7 @@ const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {
             helperText={errors.name ? 'This field is required' : ''}
           />
           <TextField
-            placeholder={123456}
+            placeholder="123456"
             fullWidth
             required
             margin="dense"

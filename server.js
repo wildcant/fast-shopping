@@ -3,20 +3,23 @@ const bodyParser = require("body-parser");
 const routes = require("./routes");
 const { PORT } = require("./config/variables");
 const morgan = require("morgan");
+const path = require("path");
 
 const app = express();
-app.use(morgan("dev"));
+app.use("/public", express.static(path.resolve(__dirname, "public")));
 app.use(bodyParser.json());
 app.use("/api", routes);
 
-app.use(function (req, res, next) {
-  var err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+}
 
 /// error handlers
 if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.json({
