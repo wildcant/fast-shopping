@@ -34,7 +34,7 @@ const ProductsTable = ({ products }) => (
               <TableCell align="center">{product.price}</TableCell>
               <TableCell align="center">{product.amount}</TableCell>
               <TableCell align="center">
-                {product.amount * product.price}
+                {(product.amount * product.price).toFixed(2)}
               </TableCell>
             </TableRow>
           ))}

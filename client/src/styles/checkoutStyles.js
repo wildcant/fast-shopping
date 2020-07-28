@@ -42,7 +42,7 @@ export const RatioWrapper = styled.div`
 
 export const AuthWrapper = styled.div`
   border: 1px solid;
-  padding: 1em;
+  padding: 0 1em;
 `;
 
 export const StyledDiv = styled.div`

@@ -41,8 +41,17 @@ export default (theme) => ({
     alignItems: 'center',
     width: '100%',
   },
-  btnSpan: {
+  btn: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  btnSpan: {
+    textTransform: 'lowercase',
+    fontSize: '.8em',
+    textAlign: 'center',
+    visibility: 'hidden',
+  },
+  visible: {
+    visibility: 'visible',
   },
 });

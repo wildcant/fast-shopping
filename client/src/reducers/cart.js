@@ -2,6 +2,7 @@ import {
   ADD_PRODUCT_CART,
   DELETE_PRODUCT_CART,
   CHANGE_PRODUCT_AMOUNT,
+  PLACE_ORDER,
 } from 'actions/types';
 import { combineReducers } from 'redux';
 
@@ -30,6 +31,8 @@ const products = (state = [], action) => {
           return { ...product, amount: action.newAmount };
         return product;
       });
+    case PLACE_ORDER:
+      return [];
     default:
       return state;
   }
@@ -43,6 +46,8 @@ const productsLength = (state = 0, action) => {
       return state - action.amount;
     case CHANGE_PRODUCT_AMOUNT:
       return state - action.previousamount + action.newAmount;
+    case PLACE_ORDER:
+      return 0;
     default:
       return state;
   }
@@ -60,6 +65,8 @@ const total = (state = 0, action) => {
         action.previousamount * action.price +
         action.newAmount * action.price
       );
+    case PLACE_ORDER:
+      return 0;
     default:
       return state;
   }

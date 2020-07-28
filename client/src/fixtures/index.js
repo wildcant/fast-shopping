@@ -253,6 +253,7 @@ const cartInitialState = {
   total: threeProductsPage.products
     .map((product) => product.price)
     .reduce((total, price) => total + price),
+  productsLength: 3,
 };
 
 const customer = {

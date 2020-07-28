@@ -1,10 +1,10 @@
+import user from '@testing-library/user-event';
 import axios from 'axios';
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { renderWithRouter, render, screen, waitForElement } from 'test-utils';
-import App from '../App';
-import { productsPage } from '../fixtures';
 import { MemoryRouter } from 'react-router-dom';
+import { render, renderWithRouter, screen, waitForElement } from 'test-utils';
+import App from '../App';
+import { cartInitialState, productsPage } from '../fixtures';
 
 jest.mock('axios');
 
@@ -22,7 +22,10 @@ describe('App', () => {
     renderWithRouter(<App />, { history });
     screen.getByRole('heading', { name: /Shopping Cart/i });
     history.push('/checkout');
-    renderWithRouter(<App />, { history });
+    renderWithRouter(<App />, {
+      history,
+      initialState: { customer: { data: { name: 'John' } } },
+    });
     screen.getByRole('heading', { name: /Customer Information/i });
     screen.getByRole('heading', { name: /Order Summary/i });
   });
@@ -37,8 +40,8 @@ describe('App', () => {
     const add2CartButtons = screen.getAllByRole('button', {
       name: /Add to Cart/i,
     });
-    userEvent.click(add2CartButtons[0]);
-    userEvent.dblClick(add2CartButtons[1]);
+    user.click(add2CartButtons[0]);
+    user.dblClick(add2CartButtons[1]);
     screen.getByRole('button', { name: /3/i });
   });
 });
@@ -51,7 +54,7 @@ describe('navigation between pages', () => {
       </MemoryRouter>
     );
     const btn = screen.getByRole('button', { name: 'cart' });
-    userEvent.click(btn);
+    user.click(btn);
     screen.getByText('Shopping Cart');
   });
 
@@ -62,7 +65,7 @@ describe('navigation between pages', () => {
       </MemoryRouter>
     );
     const btn = screen.getByRole('link', { name: /Continue Shopping/i });
-    userEvent.click(btn);
+    user.click(btn);
     screen.getByRole('button', { name: 'cart' });
   });
 
@@ -70,11 +73,24 @@ describe('navigation between pages', () => {
     render(
       <MemoryRouter initialEntries={['/cart']}>
         <App />
-      </MemoryRouter>
+      </MemoryRouter>,
+      { initialState: { cart: cartInitialState } }
     );
-    const checkoutBtns = screen.getAllByRole('button', { name: /Check Out/i });
-    userEvent.click(checkoutBtns[0]);
-    screen.getByRole('heading', { name: /Customer Information/i });
-    screen.getByRole('heading', { name: /Order Summary/i });
+    const checkoutBtns = screen.getAllByRole('button', { name: /check out/i });
+    user.click(checkoutBtns[1]);
+    screen.getByRole('heading', { name: /customer information/i });
+    screen.getByRole('heading', { name: /order summary/i });
+  });
+
+  test('go to home page from thanks', () => {
+    render(
+      <MemoryRouter initialEntries={['/thanks']}>
+        <App />
+      </MemoryRouter>,
+      { initialState: { customer: { data: { name: 'John' } } } }
+    );
+    const startAgainBtn = screen.getByRole('button', { name: /start again/i });
+    user.click(startAgainBtn);
+    screen.getByRole('button', { name: 'cart' });
   });
 });

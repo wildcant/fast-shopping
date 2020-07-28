@@ -1,5 +1,5 @@
 import { Button, Typography } from '@material-ui/core';
-import { changeCustomerType } from 'actions';
+import { changeCustomerType, placeOrder } from 'actions';
 import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
@@ -15,11 +15,19 @@ import CustomerAuth from './CustomerAuth';
 import ProductsTable from './ProductsTable';
 import { useHistory } from 'react-router-dom';
 
-const Checkout = ({ type, cartProducts, total, data, changeCustomerType }) => {
+const Checkout = ({
+  type,
+  cartProducts,
+  total,
+  data,
+  productsLength,
+  changeCustomerType,
+  placeOrder,
+}) => {
   const history = useHistory();
   const formRef = useRef(null);
   const emailRef = useRef(null);
-  const placeOrder = () => {
+  const handlePlaceOrder = () => {
     if (type == 'new') {
       formRef.current.dispatchEvent(new Event('submit', { cancelable: true }));
     } else {
@@ -29,6 +37,7 @@ const Checkout = ({ type, cartProducts, total, data, changeCustomerType }) => {
         (field) => field !== 0 && field !== ''
       );
       if (isCustomer) {
+        placeOrder();
         history.push('/thanks');
       } else {
         emailRef.current.focus();
@@ -51,9 +60,10 @@ const Checkout = ({ type, cartProducts, total, data, changeCustomerType }) => {
         <RightAlignDiv>
           <Typography variant="h5">Total: ${total.toFixed(2)}</Typography>
           <Button
+            disabled={productsLength === 0}
             type={type === 'new' ? 'submit' : 'button'}
             variant="outlined"
-            onClick={() => placeOrder()}
+            onClick={handlePlaceOrder}
           >
             Place Order
           </Button>
@@ -63,7 +73,6 @@ const Checkout = ({ type, cartProducts, total, data, changeCustomerType }) => {
   );
 };
 Checkout.propTypes = {
-  changeCustomerType: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   cartProducts: PropTypes.arrayOf(
     PropTypes.shape({
@@ -81,12 +90,18 @@ Checkout.propTypes = {
     address: PropTypes.string,
     phone: PropTypes.string,
   }),
+  productsLength: PropTypes.number.isRequired,
+  changeCustomerType: PropTypes.func.isRequired,
+  placeOrder: PropTypes.func.isRequired,
 };
 const mapStateToProps = ({ customer, cart }) => ({
   type: customer.type,
   cartProducts: cart.products,
+  productsLength: cart.productsLength,
   total: cart.total,
   data: customer.data,
 });
 
-export default connect(mapStateToProps, { changeCustomerType })(Checkout);
+export default connect(mapStateToProps, { changeCustomerType, placeOrder })(
+  Checkout
+);

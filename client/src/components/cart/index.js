@@ -9,7 +9,7 @@ import styles from 'styles/cartStyles';
 import ShopingCard from './ShoppingCard';
 const useStyles = makeStyles(styles);
 
-const Cart = ({ products, total, ...props }) => {
+const Cart = ({ products, total, productsLength, ...props }) => {
   const { changeProductAmount, deleteProductFromCard } = props;
   const classes = useStyles();
   const history = useHistory();
@@ -17,7 +17,11 @@ const Cart = ({ products, total, ...props }) => {
     <>
       <div className={classes.top}>
         <Typography variant="h3">Shopping Cart</Typography>
-        <Button variant="outlined" onClick={() => history.push('/checkout')}>
+        <Button
+          disabled={productsLength === 0}
+          variant="outlined"
+          onClick={() => history.push('/checkout')}
+        >
           Check Out
         </Button>
       </div>
@@ -37,7 +41,11 @@ const Cart = ({ products, total, ...props }) => {
       </Link>
       <div className={classes.bottom}>
         <Typography variant="h4">Total: ${total.toFixed(2)}</Typography>
-        <Button variant="outlined" onClick={() => history.push('/checkout')}>
+        <Button
+          disabled={productsLength === 0}
+          variant="outlined"
+          onClick={() => history.push('/checkout')}
+        >
           Check Out
         </Button>
       </div>
@@ -58,9 +66,11 @@ Cart.propTypes = {
   total: PropTypes.number.isRequired,
   changeProductAmount: PropTypes.func.isRequired,
   deleteProductFromCard: PropTypes.func.isRequired,
+  productsLength: PropTypes.number.isRequired,
 };
-const mapStateToProps = ({ cart: { products, total } }) => ({
+const mapStateToProps = ({ cart: { products, total, productsLength } }) => ({
   products,
   total,
+  productsLength,
 });
 export default connect(mapStateToProps, actions)(Cart);

@@ -37,7 +37,7 @@ const ProductCard = ({
         </Typography>
       </div>
       <div className={classes.cardBottom}>
-        <div className={classes.btnSpan}>
+        <div className={classes.btn}>
           <Button
             onClick={() =>
               handleAddToCart({ id_product, name, category, price })
@@ -47,10 +47,14 @@ const ProductCard = ({
           >
             {amount >= 5 ? 'Max amount' : ' Add to Cart'}
           </Button>
-          <Typography component="span" variant="body1">
-            {amount > 0
-              ? `${amount} product${amount > 1 ? 's' : ''} in cart`
-              : ''}
+          <Typography
+            className={`${classes.btnSpan} ${
+              amount > 0 ? classes.visible : ''
+            }`}
+            component="span"
+            variant="body1"
+          >
+            {amount} product{amount > 1 ? 's' : ''} in cart
           </Typography>
         </div>
         <Typography>${price}</Typography>

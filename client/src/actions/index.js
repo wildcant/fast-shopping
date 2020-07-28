@@ -19,25 +19,26 @@ import {
   SAVE_CUSTOMER,
   SAVE_CUSTOMER_FAIL,
   SAVE_CUSTOMER_SUCCESS,
+  START_AGAIN,
+  PLACE_ORDER,
 } from './types';
 
 export const onLoad = () => ({ type: APP_LOADED });
 
-export const fetchProducts = (filter) => (dispatch) => {
+export const fetchProducts = (filter) => async (dispatch) => {
   dispatch({ type: FETCH_PRODUCTS_REQUEST });
-  return api.fetchProducts(filter).then(
-    (response) => {
-      dispatch({
-        type: FETCH_PRODUCTS_SUCCESS,
-        response: response.data,
-      });
-    },
-    (error) =>
-      dispatch({
-        type: FETCH_PRODUCTS_FAIL,
-        message: error.message || 'Fetch failed',
-      })
-  );
+  try {
+    const response = await api.fetchProducts(filter);
+    dispatch({
+      type: FETCH_PRODUCTS_SUCCESS,
+      response: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_PRODUCTS_FAIL,
+      message: error.message || 'Fetch failed',
+    });
+  }
 };
 
 export const handleFilterChange = (filterOption) => (dispatch) => {
@@ -83,17 +84,15 @@ export const changeCustomerType = (value) => ({
   value,
 });
 
-export const customerByEmail = (e, email) => (dispatch) => {
+export const customerByEmail = (e, email) => async (dispatch) => {
   e.preventDefault();
   dispatch({ type: GET_CUSTOMER });
-  api.fetchCustomerByEmail(email).then(
-    (response) => {
-      dispatch({ type: GET_CUSTOMER_SUCCESS, customer: response.data });
-    },
-    (error) => {
-      dispatch({ type: GET_CUSTOMER_FAIL, message: error.message || 'Failed' });
-    }
-  );
+  try {
+    const response = await api.fetchCustomerByEmail(email);
+    dispatch({ type: GET_CUSTOMER_SUCCESS, customer: response.data });
+  } catch (error) {
+    dispatch({ type: GET_CUSTOMER_FAIL, message: error.message || 'Failed' });
+  }
 };
 
 export const changeEmail = (e) => ({
@@ -105,29 +104,30 @@ export const resetData = () => ({
   type: DELETE_CUSTOMER_DATA,
 });
 
-export const saveCustomer = (customer, ownProps) => (dispatch) => {
+export const saveCustomer = (customer, ownProps) => async (dispatch) => {
   dispatch({ type: SAVE_CUSTOMER });
-  api.saveCustomer(customer).then(
-    // eslint-disable-next-line no-unused-vars
-    (response) => {
-      dispatch({
-        type: SAVE_CUSTOMER_SUCCESS,
-        customer,
-      });
-      ownProps.history.push('/thanks');
-    },
-    (error) => {
-      dispatch({
-        type: SAVE_CUSTOMER_FAIL,
-        message:
-          error.response.statusText +
-            '\n' +
-            (error.response.data.errors
-              ? error.response.data.errors.message
-              : '') ||
-          error.message ||
-          'Failed',
-      });
-    }
-  );
+  try {
+    await api.saveCustomer(customer);
+    dispatch({
+      type: SAVE_CUSTOMER_SUCCESS,
+      customer,
+    });
+    dispatch({ type: PLACE_ORDER });
+    ownProps.history.push('/thanks');
+  } catch (error) {
+    dispatch({
+      type: SAVE_CUSTOMER_FAIL,
+      message:
+        error.response.statusText +
+          '\n' +
+          (error.response.data.errors
+            ? error.response.data.errors.message
+            : '') ||
+        error.message ||
+        'Failed',
+    });
+  }
 };
+
+export const placeOrder = () => ({ type: PLACE_ORDER });
+export const startAgain = () => ({ type: START_AGAIN });

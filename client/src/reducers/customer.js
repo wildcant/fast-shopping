@@ -8,6 +8,7 @@ import {
   SAVE_CUSTOMER,
   SAVE_CUSTOMER_SUCCESS,
   SAVE_CUSTOMER_FAIL,
+  START_AGAIN,
 } from 'actions/types';
 import { combineReducers } from 'redux';
 
@@ -29,6 +30,7 @@ const data = (state = defaultData, action) => {
         ...state,
         email: action.value,
       };
+    case START_AGAIN:
     case DELETE_CUSTOMER_DATA:
       return defaultData;
     default:
