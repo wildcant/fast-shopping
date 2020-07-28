@@ -1,11 +1,11 @@
-import React from 'react';
-import { AppBar, Typography, Toolbar } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLocation } from 'react-router-dom';
 import Logo from 'assets/images/logo.svg';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import headerStyles from 'styles/headerStyles';
-const useStyles = makeStyles(headerStyles);
 import CartButton from './home/CartButton';
+const useStyles = makeStyles(headerStyles);
 
 export default () => {
   const classes = useStyles();

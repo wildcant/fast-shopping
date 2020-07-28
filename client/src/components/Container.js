@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sm, md, lg } from 'styles/breakpoints';
+import { lg, md, sm } from 'styles/breakpoints';
 
 const Container = styled.section`
   margin: 0 1em;

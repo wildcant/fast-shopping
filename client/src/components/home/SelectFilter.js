@@ -1,7 +1,7 @@
-import React from 'react';
-import { Select, MenuItem } from '@material-ui/core';
-import styled from 'styled-components';
+import { MenuItem, Select } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
 
 const SelectStyled = styled(Select)`
   margin: 0 0 0 1rem;

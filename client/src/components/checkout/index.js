@@ -3,6 +3,7 @@ import { changeCustomerType, placeOrder } from 'actions';
 import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import {
   AuthWrapper,
   CustomerSection,
@@ -10,11 +11,10 @@ import {
   RightAlignDiv,
   Section,
 } from 'styles/checkoutStyles';
+import LoadingCircular from '../LoadingCircular';
 import AuthType from './AuthType';
 import CustomerAuth from './CustomerAuth';
 import ProductsTable from './ProductsTable';
-import { withRouter } from 'react-router-dom';
-import LoadingCircular from '../LoadingCircular';
 
 const Checkout = ({
   type,

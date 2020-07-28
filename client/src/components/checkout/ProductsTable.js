@@ -1,16 +1,16 @@
-import React from 'react';
 import {
   Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {
-  TableWraper,
-  TableContainerFixed,
   ColumnHeader,
+  TableContainerFixed,
+  TableWraper,
 } from 'styles/checkoutStyles';
 
 const ProductsTable = ({ products }) => (

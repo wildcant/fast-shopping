@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyledDiv } from 'styles/checkoutStyles';
-import CustomerForm from './CustomerForm';
 import CustomerByEmail from './CustomerByEmail';
+import CustomerForm from './CustomerForm';
 
 const CustomerAuth = ({ type, formRef, emailRef }) => {
   return (

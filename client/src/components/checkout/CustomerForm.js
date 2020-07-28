@@ -2,10 +2,10 @@ import { TextField, Typography } from '@material-ui/core';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import { saveCustomer } from 'actions';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { ErrorMessage, Left, Right } from 'styles/checkoutStyles';
 
 const CustomerForm = ({ formRef, saveCustomer, loading, errorMsg }) => {

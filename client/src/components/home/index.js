@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styles from 'styles/homeStyles';
+import Loading from '../Loading';
 import Paginator from './Paginator';
 import ProductCard from './ProductCard';
 import SelectFilter from './SelectFilter';
-import Loading from '../Loading';
 
 const options = ['Most Relevant', 'Lowest Price', 'Most Recent'];
 const useStyles = makeStyles(styles);
