@@ -10,7 +10,8 @@
     "start": "node server.js",
     "server": "nodemon -r dotenv/config server.js",
     "client": "yarn --cwd client start",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "yarn --cwd client build"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
@@ -27,5 +28,6 @@
   },
   "engines": {
     "node": "12.16.1"
-  }
+  },
+  "heroku-run-build-script": true
 }
