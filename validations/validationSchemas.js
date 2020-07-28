@@ -6,7 +6,7 @@ module.exports = {
     name: Joi.string().required(),
     id: Joi.number().required(),
     address: Joi.string().required(),
-    phone: Joi.string(),
+    phone: Joi.string().allow("").optional(),
   }),
   order_schema: Joi.object({
     id_user: Joi.number().required(),
