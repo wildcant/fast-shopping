@@ -45,7 +45,7 @@ export const fetchProducts = (filter) => async (dispatch) => {
 };
 export const handleFilterChange = (filterOption) => (dispatch) => {
   switch (filterOption) {
-    case 'Most Relevant':
+    case 'Alpha Order':
       return dispatch({ type: ALPHA_ORDER_FILTER });
     case 'Lowest Price':
       return dispatch({ type: LOWEST_PRICE_FILTER });

@@ -4,7 +4,7 @@ import {
   LOWEST_PRICE_FILTER,
 } from 'actions/types';
 
-const defaultState = { sort: '', dir: '', option: 'Most Relevant' };
+const defaultState = { sort: '', dir: '', option: 'Alpha Order' };
 export default (state = defaultState, action) => {
   switch (action.type) {
     case ALPHA_ORDER_FILTER:

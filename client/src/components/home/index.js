@@ -10,7 +10,7 @@ import Paginator from './Paginator';
 import ProductCard from './ProductCard';
 import SelectFilter from './SelectFilter';
 
-const options = ['Most Relevant', 'Lowest Price', 'Most Recent'];
+const options = ['Alpha Order', 'Lowest Price', 'Most Recent'];
 const useStyles = makeStyles(styles);
 const Home = ({
   products,
