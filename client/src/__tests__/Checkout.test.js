@@ -31,7 +31,7 @@ describe('Checkout Page', () => {
     expect(axios.get).toHaveBeenCalledWith(`/api/users?email=${fakeEmail}`);
     await waitForElementToBeRemoved(() => screen.getByText(/loading/i));
     const lookupAgain = screen.getByText(
-      `No ${customer.name.split(' ')[0]}? Lookup again`
+      `Not ${customer.name.split(' ')[0]}? Lookup again`
     );
     user.click(lookupAgain);
     screen.getByLabelText(/email/i);
@@ -51,7 +51,5 @@ describe('Checkout Page', () => {
     user.type(screen.getByLabelText(/address/i), fakeCustomerData.address);
     user.type(screen.getByLabelText(/phone/i), fakeCustomerData.phone);
     user.type(screen.getByLabelText(/email/i), fakeCustomerData.email);
-    // fireEvent.submit(screen.getByRole('form'));
-    // await waitForElementToBeRemoved(() => screen.getByText(/saving/i));
   });
 });

@@ -34,7 +34,7 @@ const CustomerByEmail = ({
         )}
         <Typography variant="body1">Email: {email}</Typography>
         <LinkStyle variant="body2" onClick={() => resetData()}>
-          No {data.name.split(' ')[0]}? Lookup again
+          Not {data.name.split(' ')[0]}? Lookup again
         </LinkStyle>
       </DataWrapper>
     );
