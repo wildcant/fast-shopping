@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Fast Shopping</h1>
 
-<a href="#">
+<a href="https://fastshopping-will.herokuapp.com/">
   <img
     height="80"
     width="80"
@@ -24,7 +24,7 @@ Before you begin, ensure you have met the following requirements:
 
 * You have installed the latest version of node js.
 * You have installed the latest version of yarn.
-* You have installed MySQL data base.
+* You have installed MySQL database.
 
 ## Installing Fast Shopping
 
@@ -36,7 +36,7 @@ cd fast-shopping && yarn
 cd client && yarn
 ```
 
-In order to to create the data base you can use the [model](https://github.com/CwirL/fast-shopping/blob/master/db/fast_shopping_app.mwb) which you can forward  or use the [SQL script](https://github.com/CwirL/fast-shopping/blob/master/db/database.sql). There is also some test data to fill the products table at [products_data.sql](https://github.com/CwirL/fast-shopping/blob/master/db/products_data.sql), fill free to use it.
+In order to create the database you can use the [model](https://github.com/CwirL/fast-shopping/blob/master/db/fast_shopping_app.mwb) which you can forward  or use the [SQL script](https://github.com/CwirL/fast-shopping/blob/master/db/database.sql). There is also some test data to fill the products table at [products_data.sql](https://github.com/CwirL/fast-shopping/blob/master/db/products_data.sql), feel free to use it.
 
 MySQL ER Diagram
 <img
@@ -47,7 +47,7 @@ MySQL ER Diagram
 />
 
 
-After creating the data base make sure you add the .env file with your db credentials, based on [server .env-template](.env-template). eg:
+After creating the database make sure you add the .env file with your db credentials, based on [server .env-template](.env-template). eg:
 ### `.env`
 ```env
 DB="fast_shopping"
